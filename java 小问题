@@ -1,5 +1,5 @@
 java 小问题
-1。Java是引用传递还是值传递？
+1.Java是引用传递还是值传递？
 	Java一直都是值传递，但是他们决定把指针叫做引用，因此总是把大家搞晕，因为这些引用也是通过值传递的。
 2.关于Java +=操作符的问题
 一直认为：i+=j；只是简写的i=i+j；
@@ -13,3 +13,18 @@ i=i+j;就无法编译，而i += j;则可以编译。
 	x结果是7，因为它等价于
 		short x = 3;
 		x = (short)(x+4.6);
+3.HashMap和HashTable之间有什么不同？
+两者有何不同，非多线程使用哪个更有效率？
+	Java中HashMap和HashTable有几个不同点：
+	1）HashTable是同步的然而HashMap不同步。所以HashMap更适合非多线程应用，因为非同步对象通常执行效率优于同步对象。
+	2）HashTable不允许null值和键。HashMap允许有一个null键和一个NULL值。
+	3）HashMap的一个子类是LinkHashMap。所以如果想预知迭代顺序，只需将HashMap转换成一个LinkHashMap，但是HashTable就没这么简单。
+	
+4.读取或者把一个InputStream转成一个String
+如果你有一个java.io.InputStream对象，如处理这个对象并生成一个字符串？
+假定有一个InputStream对象，它包含文本数据，我希望将它转化成一个字符串（这样就可以将流的内容写到一个log文件中）。
+总之，如何简单地将InputStream转换成String？
+	使用Apache commons IOUtils库来拷贝InputStream到StringWriter是一种不错的方式。类似这样：
+		StringWriter writer = new StringWriter();
+		IOUtils.copy(inputStream,writer,encoding);
+		String theString = writer.toString();
